@@ -1,0 +1,26 @@
+{
+    "name": "test-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "next",
+        "build": "next build",
+        "start": "next start",
+        "export": "next export"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@zeit/next-less": "^1.0.1",
+        "@zeit/next-typescript": "^1.1.1",
+        "less": "^3.9.0",
+        "next": "^8.0.4",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6"
+    },
+    "devDependencies": {
+        "@types/next": "^8.0.3",
+        "@types/react": "^16.8.13"
+    }
+}
