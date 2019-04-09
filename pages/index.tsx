@@ -5,11 +5,7 @@ function Home() {
             Hello world
             <p className="sample">Smaple</p>
             <p>scoped!</p>
-            {/* <style jsx>{`
-                p {
-                    color: blue;
-                }
-            `}</style> */}
+            trigger
         </div>
     );
 }
