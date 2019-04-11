@@ -1,12 +1,25 @@
 import React from "react";
 import { NextContext } from "next";
+import hub from "../services/hub";
 
 interface ITestProps {
     userAgent: string;
     JAVA_HOME: string;
+    testResult: string;
 }
 
-class Test extends React.Component<ITestProps> {
+interface ITestState {
+    count: number;
+}
+
+class Test extends React.Component<ITestProps, ITestState> {
+    constructor(P: ITestProps, S: ITestState) {
+        super(P, S);
+        this.state = {
+            count: 1
+        };
+    }
+
     static async getInitialProps({ req }: NextContext) {
         let userAgent = "error";
         if (req && req.headers && req.headers["user-agent"]) {
@@ -14,17 +27,36 @@ class Test extends React.Component<ITestProps> {
         } else if (typeof window !== "undefined") {
             userAgent = navigator.userAgent;
         }
+        console.info("getInitialProps");
+        let testResult = await hub.testService.test();
+        return { userAgent, JAVA_HOME: process.env.JAVA_HOME, testResult };
+    }
 
-        return { userAgent, JAVA_HOME: process.env.JAVA_HOME };
+    handleTestClickEvent(e: React.MouseEvent) {
+        console.info(e);
+        this.setState({
+            count: this.state.count + 1
+        });
+    }
+
+    handleAjaxClickEvent(e: React.MouseEvent) {
+        console.info(e);
     }
 
     render() {
         return (
             <div>
                 test
-                <p>{"AAA"}</p>
-                <p data-test={this.props.JAVA_HOME}>2333 ${this.props.userAgent}</p>
-                <p>C:\Program Files\Java\jdk1.8.0_171</p>
+                <p>{this.props.userAgent}</p>
+                <p>{this.props.JAVA_HOME}</p>
+                <p>{this.props.testResult}</p>
+                <p>{this.state.count}</p>
+                <p>
+                    <button onClick={this.handleTestClickEvent.bind(this)}>count</button>
+                </p>
+                <p>
+                    <button onClick={this.handleAjaxClickEvent.bind(this)}>ajax</button>
+                </p>
             </div>
         );
     }
