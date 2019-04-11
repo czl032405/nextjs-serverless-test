@@ -25,7 +25,7 @@ class Test extends React.Component<ITestProps, ITestState> {
         let userAgent = "error";
         const isBrowser = typeof window !== "undefined";
         let testResult = "";
-        if (!isBrowser) {
+        if (!process.browser) {
             if (req && req.headers && req.headers["user-agent"]) {
                 userAgent = req.headers["user-agent"];
             }
