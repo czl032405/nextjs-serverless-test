@@ -4,6 +4,7 @@ import hub from "../services/hub";
 
 interface ITestProps {
     userAgent: string;
+    NODE_ENV: string;
     JAVA_HOME: string;
     testResult: string;
 }
@@ -29,7 +30,7 @@ class Test extends React.Component<ITestProps, ITestState> {
         }
         console.info("getInitialProps");
         let testResult = await hub.testService.test();
-        return { userAgent, JAVA_HOME: process.env.JAVA_HOME, testResult };
+        return { userAgent, NODE_ENV: process.env.NODE_ENV, JAVA_HOME: process.env.JAVA_HOME, testResult };
     }
 
     handleTestClickEvent(e: React.MouseEvent) {
@@ -48,6 +49,7 @@ class Test extends React.Component<ITestProps, ITestState> {
             <div>
                 test
                 <p>{this.props.userAgent}</p>
+                <p>{this.props.NODE_ENV}</p>
                 <p>{this.props.JAVA_HOME}</p>
                 <p>{this.props.testResult}</p>
                 <p>{this.state.count}</p>
