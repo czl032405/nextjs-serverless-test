@@ -23,13 +23,16 @@ class Test extends React.Component<ITestProps, ITestState> {
 
     static async getInitialProps({ req }: NextContext) {
         let userAgent = "error";
-        if (req && req.headers && req.headers["user-agent"]) {
-            userAgent = req.headers["user-agent"];
-        } else if (typeof window !== "undefined") {
-            userAgent = navigator.userAgent;
+        const isBrowser = typeof window !== "undefined";
+        let testResult = "";
+        if (!isBrowser) {
+            if (req && req.headers && req.headers["user-agent"]) {
+                userAgent = req.headers["user-agent"];
+            }
+            console.info("getInitialProps");
+            testResult = await hub.testService.test();
         }
-        console.info("getInitialProps");
-        let testResult = await hub.testService.test();
+
         return { userAgent, NODE_ENV: process.env.NODE_ENV, JAVA_HOME: process.env.JAVA_HOME, testResult };
     }
 
