@@ -23,7 +23,9 @@ class Test extends React.Component<ITestProps, ITestState> {
 
     static async getInitialProps({ req }: NextContext) {
         let userAgent = "error";
-        const isBrowser = typeof window !== "undefined";
+
+        const isServer = typeof window === "undefined";
+
         let testResult = "";
         if (!process.browser) {
             if (req && req.headers && req.headers["user-agent"]) {
@@ -33,7 +35,7 @@ class Test extends React.Component<ITestProps, ITestState> {
             testResult = await hub.testService.test();
         }
 
-        return { userAgent, NODE_ENV: process.env.NODE_ENV, JAVA_HOME: process.env.JAVA_HOME, testResult };
+        return { isServer, userAgent, NODE_ENV: process.env.NODE_ENV, JAVA_HOME: process.env.JAVA_HOME, testResult };
     }
 
     handleTestClickEvent(e: React.MouseEvent) {
