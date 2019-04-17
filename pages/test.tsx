@@ -7,6 +7,7 @@ interface ITestProps {
     NODE_ENV: string;
     JAVA_HOME: string;
     testResult: string;
+    isServer: boolean;
 }
 
 interface ITestState {
@@ -57,6 +58,7 @@ class Test extends React.Component<ITestProps, ITestState> {
                 <p>{this.props.NODE_ENV}</p>
                 <p>{this.props.JAVA_HOME}</p>
                 <p>{this.props.testResult}</p>
+                <p>{this.props.isServer}</p>
                 <p>{this.state.count}</p>
                 <p>
                     <button onClick={this.handleTestClickEvent.bind(this)}>count</button>
